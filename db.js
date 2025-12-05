@@ -12,5 +12,23 @@ const pool = new Pool({
   }
 });
 
+
+(async () => {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS tasks (
+        id SERIAL PRIMARY KEY,
+        text TEXT NOT NULL,
+        completed BOOLEAN DEFAULT FALSE
+      );
+    `);
+    console.log("Tasks table ready!");
+  } catch (err) {
+    console.error("Error creating table:", err);
+  }
+})();
+
 module.exports = pool;
+
+
 
